@@ -1,3 +1,4 @@
+import 'package:barcode_scanner/boxes.dart';
 import 'package:barcode_scanner/data/models/barcode.dart';
 import 'package:barcode_scanner/presentation/cubit/barcode_cubit.dart';
 import 'package:barcode_scanner/presentation/widgets/barcode_tile.dart';
@@ -6,13 +7,35 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-class BarcodeList extends StatelessWidget {
+class BarcodeList extends StatefulWidget {
   const BarcodeList({Key? key}) : super(key: key);
+
+  @override
+  State<BarcodeList> createState() => _BarcodeListState();
+}
+
+class _BarcodeListState extends State<BarcodeList> {
+  @override
+  void initState() {
+    HiveBoxesService.registerAdapters();
+    HiveBoxesService.openBoxes();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    HiveBoxesService.closeBoxes();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BarcodeCubit(),
+      create: (context) => BarcodeCubit(
+        barcodes: HiveBoxesService.readFromLocalStorage('barcodes')
+            .map((model) => Barcode.fromBarcodeHiveModel(model))
+            .toList(),
+      ),
       child: BlocBuilder<BarcodeCubit, BarcodeState>(
         builder: (context, state) {
           return Scaffold(
@@ -73,3 +96,4 @@ class BarcodeList extends StatelessWidget {
 
 
       // DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now())
+
