@@ -1,11 +1,16 @@
 import 'package:equatable/equatable.dart';
 
-// ignore: must_be_immutable
 class Barcode extends Equatable {
-  String barcode;
-  DateTime creationTime;
+  final String barcode;
+  final String creationTime;
 
-  Barcode({required this.barcode, required this.creationTime});
+  const Barcode({required this.barcode, required this.creationTime});
   @override
-  List<Object?> get props => [barcode];
+  List<Object?> get props => [barcode, creationTime];
+
+  Map<String, String> toMap() =>
+      <String, String>{'name': barcode, 'time': creationTime};
+
+  factory Barcode.fromMap(Map<String, dynamic> map) =>
+      Barcode(barcode: map['name'] ?? '', creationTime: map['time'] ?? '');
 }
