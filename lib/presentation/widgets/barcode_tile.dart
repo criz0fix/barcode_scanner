@@ -11,21 +11,20 @@ class BarcodeTile extends StatelessWidget {
     return ConstrainedBox(
       constraints: const BoxConstraints(minHeight: 90, maxHeight: 90),
       child: Container(
-          alignment: Alignment.center,
-          // margin: const EdgeInsets.symmetric(vertical: 10),
-          decoration: const BoxDecoration(
-            color: Colors.white,
-            border: Border(
-              top: BorderSide(width: 1.0, color: Color(0xAA000000)),
-              //bottom: BorderSide(width: 1.0, color: Color(0x00000000)),
-            ),
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          border: Border(
+            top: BorderSide(width: 1.0, color: Color(0xAA000000)),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              children: [Text(title), const Spacer(), Text(savedTime)],
-            ),
-          )),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Row(
+            children: [Text(title), const Spacer(), Text(savedTime)],
+          ),
+        ),
+      ),
     );
   }
 }

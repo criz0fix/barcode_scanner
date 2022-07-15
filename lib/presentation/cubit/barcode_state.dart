@@ -2,6 +2,7 @@ part of 'barcode_cubit.dart';
 
 class BarcodeState extends Equatable {
   final List<Barcode> barcodeList;
+
   const BarcodeState({
     required this.barcodeList,
   });
